@@ -20,13 +20,15 @@ else
   cnt = 0
   loop do
     print "pico-tcl> "
-    line = STDIN.gets
     begin
+      line = STDIN.gets
       ret = interp.eval(line)
       if ret.size != 0
         puts "[#{cnt}] "+ret
         cnt += 1
       end
+    rescue Interrupt
+      exit
     rescue => e
       puts e
     end
